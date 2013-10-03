@@ -22,6 +22,7 @@
   };
 
   Asteroid.prototype.draw = function (ctx) {
+    // draw circle of this.radius around this.pos on ctx
     ctx.strokeStyle = Asteroid.COLOR;
     ctx.beginPath();
 

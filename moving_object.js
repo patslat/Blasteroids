@@ -14,18 +14,37 @@
 
   MovingObject.prototype.draw = function (ctx) {
     // draw circle of this.radius around this.pos on ctx
+    ctx.strokeStyle = this.color;
+    ctx.beginPath();
+
+    ctx.arc(
+      this.pos.x,
+      this.pos.y,
+      this.radius,
+      0,
+      2 * Math.PI,
+      false
+    );
+    ctx.stroke();
   }
 
   MovingObject.prototype.isCollidedWith = function (otherObject) {
     // compute dist between two centers
-    // if sum of radii is greater than this, collision boom!
+    // if sum of radii is greater than this, collision boom time!
+    var distance = MovingObject._calculateDistance(otherObject);
+    return (distance < (this.radius + otherObject.radius))
   }
 
   MovingObject.randomVec = function () {
     return { x: ((Math.random() * 2) - 1), y: ((Math.random() * 2) - 1) };
   }
 
-
+  MovingObject._calculateDistance = function (otherObject) {
+    Math.sqrt(
+      Math.pow((this.pos.x - otherObject.pos.x), 2) +
+      Math.pow((this.pos.y - otherObject.pos.y), 2)
+    )
+  }
 
 
 })(this);
