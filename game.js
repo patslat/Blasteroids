@@ -2,8 +2,9 @@
   var Asteroids = root.Asteroids = (root.Asteroids || {}),
       Game = Asteroids.Game = function (ctx) {
         this.ctx = ctx;
+        this.ship = null;
         this.asteroids = [];
-        this.bullets = []
+        this.bullets = [];
       };
 
   Game.DIM_X = 900;
@@ -14,6 +15,7 @@
     // use clearRect to clear the rectangle
     // draw each asteroid
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    this.ship.draw(this.ctx);
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
     }
@@ -54,7 +56,6 @@
 
     function step(timestamp) {
       self.step()
-      if (start === null) start = timestamp;
       requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -68,11 +69,11 @@
 
   Game.prototype.bindKeyHandlers = function () {
     var self = this;
-    key("w", function () { console.log("up") });
-    key("a", function () { console.log("left") });
-    key("d", function () { console.log("right") });
+    key("w", function () { self.ship.power({ x: 5.0, y: 5.0 }) });
+    key("d", function () { self.ship.turn(Math.PI / 16.0) });
+    key("a", function () { self.ship.turn(-(Math.PI / 16.0)) });
 
-    key("space", function () { self.fireBullet() });
+    key("space", function () { self.ship.fireBullet() });
   }
 
 })(this);

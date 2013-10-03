@@ -21,21 +21,4 @@
     return new Asteroids.Asteroid({ x: x, y: y }, vel)
   };
 
-  Asteroid.prototype.draw = function (ctx) {
-    // draw circle of this.radius around this.pos on ctx
-    ctx.strokeStyle = Asteroid.COLOR;
-    ctx.beginPath();
-
-    ctx.arc(
-      this.pos.x,
-      this.pos.y,
-      this.radius,
-      0,
-      2 * Math.PI,
-      false
-    );
-    ctx.stroke();
-  }
-
-
 })(this);
