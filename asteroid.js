@@ -3,7 +3,7 @@
       Asteroid = Asteroids.Asteroid = function (pos, vel) {
         return Asteroids.MovingObject.call(this, pos, vel, Asteroid.RADIUS, Asteroid.COLOR);
       }
-  Asteroid.RADIUS = 5;
+  Asteroid.RADIUS = 50;
   Asteroid.COLOR = "blue";
 
   Asteroid.inherits = function (ParentClass) {
@@ -22,7 +22,7 @@
   };
 
   Asteroid.prototype.draw = function (ctx) {
-    ctx.fillStyle = "black";
+    ctx.strokeStyle = Asteroid.COLOR;
     ctx.beginPath();
 
     ctx.arc(
@@ -33,8 +33,7 @@
       2 * Math.PI,
       false
     );
-
-    ctx.fill();
+    ctx.stroke();
   }
 
 

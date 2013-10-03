@@ -8,8 +8,8 @@
       };
 
   MovingObject.prototype.move = function () {
-    this.pos.x += this.vel.x;
-    this.pos.y += this.vel.y;
+    this.pos.x = (Asteroids.Game.DIM_X + this.pos.x + this.vel.x) % Asteroids.Game.DIM_X;
+    this.pos.y = (Asteroids.Game.DIM_Y + this.pos.y + this.vel.y) % Asteroids.Game.DIM_Y;
   }
 
   MovingObject.prototype.draw = function (ctx) {
@@ -22,7 +22,7 @@
   }
 
   MovingObject.randomVec = function () {
-    return { x: Math.random(), y: Math.random() };
+    return { x: ((Math.random() * 2) - 1), y: ((Math.random() * 2) - 1) };
   }
 
 
