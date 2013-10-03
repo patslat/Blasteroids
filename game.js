@@ -42,26 +42,22 @@
   }
 
   Game.prototype.start = function () {
+    var self = this,
+        start = null;
+
     this.bindKeyHandlers();
     this.ship = new Asteroids.Ship(
       { x: (Game.DIM_X / 2), y: (Game.DIM_Y / 2) },
       { x: 0, y: 0 }
     );
     this.addAsteroids(10);
-    this.step();
 
-//    var start = null;
-//    function step(timestamp) {
-//      this.step()
-//      var progress;
-//      if (start === null) start = timestamp;
-//      progress = timestamp - start;
-//      if (progress < 2000) {
-//        requstAnimationFrame(step);
-//      }
-//    }
-//    requestAnimationFrame(step);
-    //request animation frame? to schedule game//step
+    function step(timestamp) {
+      self.step()
+      if (start === null) start = timestamp;
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
   Game.prototype.addAsteroids = function(numAsteroids) {
