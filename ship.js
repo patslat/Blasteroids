@@ -31,7 +31,7 @@
     ctx.drawImage(spaceship, this.pos.x - 64, this.pos.y - 64);
     ctx.restore();
   }
-//
+
 
   Ship.prototype.move = function () {
     this.pos.x = (Asteroids.Game.DIM_X + this.pos.x + (this.vel.x)) % Asteroids.Game.DIM_X;

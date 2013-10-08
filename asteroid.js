@@ -4,7 +4,7 @@
         return Asteroids.MovingObject.call(this, pos, vel, Asteroid.RADIUS, Asteroid.COLOR);
       }
   Asteroid.RADIUS = 50;
-  Asteroid.COLOR = "blue";
+  Asteroid.COLOR = "steelblue";
 
   Asteroid.inherits = function (ParentClass) {
     function Surrogate() {}

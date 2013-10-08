@@ -14,19 +14,11 @@
   Game.prototype.draw = function () {
     // use clearRect to clear the rectangle
     // draw each asteroid
-//    var bg = new Image();
-//    bg.src = "dat_background.jpg";
-//
-//    var self = this;
-//    bg.onload = function () {
-//      self.ctx.drawImage(bg, 0, 0);
-//    }
-    //
-    //var bg = document.getElementById("background");
-    //this.ctx.drawImage(bg, 0, 0);
 
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
     this.ship.draw(this.ctx);
+
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
     }
@@ -41,15 +33,30 @@
 
   Game.prototype.checkCollisions = function () {
     // iterate through asteroids and see if any collide
+    for (var i = 0; i < this.asteroids.length; i++) {
+      var asteroid = this.asteroids[i]
+      // check if collides with ship
+      if (asteroid.isCollidedWith(this.ship)) {
+        console.log("WE'VE BEEN HIT!");
+      }
+      // iterate through bullets and see if any collide
+      for (var j = 0; j < this.bullets.length; j++) {
+        var bullet = this.bullets[j];
+        if (asteroid.isCollidedWith(bullet)) {
+          console.log("Shot an Asteroid!");
+        }
+      }
+    }
   }
 
   Game.prototype.stop = function () {
     // save timer id returned by setinterval
-    clearInterval(); // pause the game
+    //clearInterval(); // pause the game
   }
 
   Game.prototype.step = function () {
     // perform one step
+    this.checkCollisions();
     this.move();
     this.draw();
   }
@@ -81,11 +88,9 @@
   Game.prototype.bindKeyHandlers = function () {
     var self = this;
     key("w", function () { self.ship.power({ x: 5.0, y: 5.0 }) });
-    key("a", function () { self.ship.turn(-(Math.PI / 16.0)) });
-    key("d", function () { self.ship.turn(Math.PI / 16.0) });
+    key("a", function () { self.ship.turn(-(Math.PI / 32.0)) });
+    key("d", function () { self.ship.turn(Math.PI / 32.0) });
     key("space", function () { self.ship.fireBullet() });
-
-
   }
 
 })(this);
