@@ -1,13 +1,18 @@
 <!DOCTYPE HTML>
 <head>
+  <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
   <script type="text/javascript" src="keymaster.js"></script>
   <script type="text/javascript" src="raf.js"></script>
   <script type="text/javascript" src="moving_object.js"></script>
   <script type="text/javascript" src="asteroid.js"></script>
   <script type="text/javascript" src="ship.js"></script>
   <script type="text/javascript" src="game.js"></script>
+  <style type="text/css">
+    canvas { background:url(dat_background.jpg) }
+  </style>
 </head>
 <body>
+  <img id="spaceship" src="spaceship.png" hidden></img>
   <script>
     var canvas = document.createElement("canvas");
     canvas.setAttribute("width", Asteroids.Game.DIM_X);

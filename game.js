@@ -14,6 +14,17 @@
   Game.prototype.draw = function () {
     // use clearRect to clear the rectangle
     // draw each asteroid
+//    var bg = new Image();
+//    bg.src = "dat_background.jpg";
+//
+//    var self = this;
+//    bg.onload = function () {
+//      self.ctx.drawImage(bg, 0, 0);
+//    }
+    //
+    //var bg = document.getElementById("background");
+    //this.ctx.drawImage(bg, 0, 0);
+
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     this.ship.draw(this.ctx);
     for (var i = 0; i < this.asteroids.length; i++) {
@@ -70,10 +81,11 @@
   Game.prototype.bindKeyHandlers = function () {
     var self = this;
     key("w", function () { self.ship.power({ x: 5.0, y: 5.0 }) });
-    key("d", function () { self.ship.turn(Math.PI / 16.0) });
     key("a", function () { self.ship.turn(-(Math.PI / 16.0)) });
-
+    key("d", function () { self.ship.turn(Math.PI / 16.0) });
     key("space", function () { self.ship.fireBullet() });
+
+
   }
 
 })(this);

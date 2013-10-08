@@ -17,18 +17,27 @@
   Ship.inherits(Asteroids.MovingObject);
 
   Ship.prototype.power = function (impulse) {
-    console.log(impulse);
-    console.log(this.direction);
     this.vel.x += impulse.x * Math.cos(this.direction);
     this.vel.y += impulse.y * Math.sin(this.direction);
-    console.log(this);
   }
+//
+  Ship.prototype.draw = function (ctx) {
+    var spaceship = document.getElementById("spaceship");
+
+    ctx.save();
+    ctx.translate(this.pos.x, this.pos.y);
+    ctx.rotate(this.direction - Math.PI/2);
+    ctx.translate(-this.pos.x, -this.pos.y);
+    ctx.drawImage(spaceship, this.pos.x - 64, this.pos.y - 64);
+    ctx.restore();
+  }
+//
 
   Ship.prototype.move = function () {
     this.pos.x = (Asteroids.Game.DIM_X + this.pos.x + (this.vel.x)) % Asteroids.Game.DIM_X;
     this.pos.y = (Asteroids.Game.DIM_Y + this.pos.y + (this.vel.y)) % Asteroids.Game.DIM_Y;
-    if (Math.abs(this.vel.x) > 0) this.vel.x = this.vel.x / 1.01;
-    if (Math.abs(this.vel.y) > 0) this.vel.y = this.vel.y / 1.01;
+    if (Math.abs(this.vel.x) > 0) this.vel.x = this.vel.x / 1.02;
+    if (Math.abs(this.vel.y) > 0) this.vel.y = this.vel.y / 1.02;
   }
 
   Ship.prototype.turn = function (dir) {
