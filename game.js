@@ -22,6 +22,10 @@
     for (var i = 0; i < this.asteroids.length; i++) {
       this.asteroids[i].draw(this.ctx);
     }
+
+    for (var i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].draw(this.ctx);
+    }
   }
 
   Game.prototype.move = function () {
@@ -31,7 +35,12 @@
     }
 
     for (var i = 0; i < this.bullets.length; i++) {
-      this.bullets[i].move();
+      var bullet = this.bullets[i];
+      bullet.move();
+      if (bullet.offScreen()) {
+        console.log("off screen!");
+        this.bullets.splice(i, 1);
+      }
     }
   }
 
@@ -48,7 +57,8 @@
         var bullet = this.bullets[j];
         if (asteroid.isCollidedWith(bullet)) {
           console.log("Shot an Asteroid!");
-          a.splice(j)
+          this.bullets.splice(j, 1)
+          this.asteroids.splice(i, 1)
         }
       }
     }

@@ -1,21 +1,27 @@
 (function (root) {
   var Asteroids = root.Asteroids = (root.Asteroids || {}),
-      MovingObject = Asteroids.MovingObject = function (pos, vel, radius, color) {
+      MovingObject = Asteroids.MovingObject = function (pos, vel, radius, color, wraps) {
         this.pos = pos;
         this.vel = vel;
         this.radius = radius;
         this.color = color;
+        this.wraps = wraps || true;
       };
 
   MovingObject.prototype.move = function () {
-    this.pos.x = (Asteroids.Game.DIM_X + this.pos.x + this.vel.x) % Asteroids.Game.DIM_X;
-    this.pos.y = (Asteroids.Game.DIM_Y + this.pos.y + this.vel.y) % Asteroids.Game.DIM_Y;
+    if (this.wraps) {
+      this.pos.x = (Asteroids.Game.DIM_X + this.pos.x + this.vel.x) % Asteroids.Game.DIM_X;
+      this.pos.y = (Asteroids.Game.DIM_Y + this.pos.y + this.vel.y) % Asteroids.Game.DIM_Y;
+    } else {
+      this.pos.x += this.vel.x
+      this.pos.y += this.vel.y
+    }
   }
 
   MovingObject.prototype.draw = function (ctx) {
     // draw circle of this.radius around this.pos on ctx
     ctx.strokeStyle = this.color;
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 2;
     ctx.beginPath();
 
     ctx.arc(
@@ -34,6 +40,13 @@
     // if sum of radii is greater than this, collision boom time!
     var distance = MovingObject._calculateDistance(this, otherObject);
     return (distance < (this.radius + otherObject.radius))
+  }
+
+  MovingObject.prototype.offScreen = function () {
+    return (this.pos.x > Asteroids.Game.DIM_X ||
+            this.pos.x < 0                    ||
+            this.pos.y > Asteroids.Game.DIM_Y ||
+            this.pos.y < 0)
   }
 
   MovingObject.randomVec = function () {

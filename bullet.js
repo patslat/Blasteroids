@@ -1,13 +1,22 @@
 (function (root) {
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  var Bullet = Asteroids.Bullet = function (pos) {
-    Asteroids.MovingObject.call(this, pos, Bullet.VELOCITY, Bullet.RADIUS, Bullet.COLOR);
+  var Bullet = Asteroids.Bullet = function (pos, dir) {
+    var velocity = {
+      x: Bullet.VELOCITY.x * Math.cos(dir),
+      y: Bullet.VELOCITY.y * Math.sin(dir)
+    }
+    Asteroids.MovingObject.call(this,
+                                pos,
+                                velocity,
+                                Bullet.RADIUS,
+                                Bullet.COLOR,
+                                false);
   }
 
-  Bullet.RADIUS = 1;
+  Bullet.RADIUS = 5;
   Bullet.COLOR = 'yellow';
-  Bullet.VELOCITY = { x: 1, y: 1 };
+  Bullet.VELOCITY = { x: 10, y: 10 };
 
   Bullet.inherits = function (ParentClass) {
     function Surrogate() {}
