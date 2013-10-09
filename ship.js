@@ -44,4 +44,9 @@
     this.direction += dir
   }
 
+  Ship.prototype.fireBullet = function () {
+    console.log(this.pos)
+    return bullet = new Asteroids.Bullet({ x: this.pos.x, y: this.pos.y });
+  }
+
 })(this);
