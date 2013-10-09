@@ -5,7 +5,7 @@
         this.vel = vel;
         this.radius = radius;
         this.color = color;
-        this.wraps = wraps || true;
+        this.wraps = wraps;
       };
 
   MovingObject.prototype.move = function () {
@@ -43,6 +43,7 @@
   }
 
   MovingObject.prototype.offScreen = function () {
+    console.log(this);
     return (this.pos.x > Asteroids.Game.DIM_X ||
             this.pos.x < 0                    ||
             this.pos.y > Asteroids.Game.DIM_Y ||
